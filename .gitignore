@@ -1,4 +1,10 @@
-# ignore .idea
+# local "db"
+.db/
+
+# image files folder
+.images/
+
+# .idea
 .idea/
 
 # Byte-compiled / optimized / DLL files
