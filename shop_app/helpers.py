@@ -1,4 +1,4 @@
-from canvas import app
+from shop_app.canvas import app
 
 
 def clean_screen():

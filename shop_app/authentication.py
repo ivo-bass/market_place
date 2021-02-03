@@ -1,15 +1,23 @@
 import json
-from tkinter import Button, Entry
-from canvas import app
+from tkinter import Button, Entry, Label
+from shop_app.canvas import app
 from shop_app.helpers import clean_screen
-
+from shop_app.products import render_products
 
 USERS_FILE = './db/users.txt'
 CREDENTIALS_FILE = './db/user_credentials_db.txt'
+ERROR_CREDENTIALS = 'Please enter valid credentials!'
 
 
 def login(username, password):
-    pass
+    with open(CREDENTIALS_FILE, 'r') as file:
+        lines = file.readlines()
+        for line in lines:
+            u, p = line[:-1].split(' | ')
+            if u == username and p == password:
+                render_products()
+                return
+        render_login(err=ERROR_CREDENTIALS)
 
 
 def register(**user):
@@ -20,9 +28,10 @@ def register(**user):
     with open(CREDENTIALS_FILE, 'a') as file:
         file.write(f'{user.get("username")} | {user.get("password")}')
         file.write('\n')
+    render_login()
 
 
-def render_login():
+def render_login(err=None):
     clean_screen()
     username = Entry(app)
     username.grid(row=0, column=0)
@@ -32,6 +41,8 @@ def render_login():
            command=lambda: login(
                username=username.get(),
                password=password.get())).grid(row=3, column=0)
+    if err:
+        Label(text=err).grid(row=4, column=0)
 
 
 def render_register():

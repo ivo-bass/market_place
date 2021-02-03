@@ -1,8 +1,8 @@
 # local "db"
-.db/
+db/
 
 # image files folder
-.images/
+images/
 
 # .idea
 .idea/
