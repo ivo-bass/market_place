@@ -4,7 +4,7 @@ from shop_app.canvas import app
 from shop_app.helpers import clean_screen
 from tkinter import Button, Label
 
-PRODUCTS_FILE = 'temp/products.txt'
+PRODUCTS_FILE = 'db/products.txt'
 
 
 def render_products():
