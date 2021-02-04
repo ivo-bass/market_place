@@ -4,8 +4,8 @@ from shop_app.canvas import app
 from shop_app.helpers import clean_screen
 from shop_app.products import render_products
 
-USERS_FILE = './db/users.txt'
-CREDENTIALS_FILE = './db/user_credentials_db.txt'
+USERS_FILE = 'temp/users.txt'
+CREDENTIALS_FILE = 'temp/user_credentials_db.txt'
 ERROR_CREDENTIALS = 'Please enter valid credentials!'
 
 

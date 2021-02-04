@@ -1,3 +1,0 @@
-{"username": "iai", "password": "pass", "first_name": "ivo", "last_name": "bass", "products": []}
-{"username": "test", "password": "test", "first_name": "test", "last_name": "test", "products": []}
-{"username": "asd", "password": "asd", "first_name": "asd", "last_name": "asd", "products": []}
