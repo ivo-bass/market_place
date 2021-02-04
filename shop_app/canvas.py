@@ -3,7 +3,7 @@ from tkinter import Tk
 
 def create_app():
     tk = Tk()
-    tk.geometry('700x500')
+    tk.geometry('800x600+0+0')
     tk.title('Shop')
     return tk
 

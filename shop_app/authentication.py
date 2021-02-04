@@ -3,7 +3,7 @@ import os
 from shop_app.canvas import app
 from shop_app.helpers import clean_screen
 from shop_app.products import render_products
-from tkinter import Button, Entry, Label
+from tkinter import Button, Entry, Label, Frame
 
 BASE_DIR = os.path.dirname(__file__)
 IMAGE_DIR = os.path.join(BASE_DIR, 'images')
@@ -12,7 +12,7 @@ PRODUCTS_FILE = os.path.join(DB_DIR, 'products.txt')
 USERS_FILE = os.path.join(DB_DIR, 'users.txt')
 CURRENT_USER_FILE = os.path.join(DB_DIR, 'current_user.txt')
 CREDENTIALS_FILE = os.path.join(DB_DIR, 'user_credentials_db.txt')
-ERROR_CREDENTIALS = 'Please enter valid credentials!'
+ERROR_CREDENTIALS = 'Invalid username or password'
 
 
 def login(username, password):
@@ -41,60 +41,68 @@ def register(**user):
 
 def render_login(err=None):
     clean_screen()
+    frame = Frame(app, width=400, height=400)
+    frame.grid(row=0, column=0, padx=220, pady=100)
 
-    label = Label(text='Username: ')
+    label = Label(frame, text='Username: ')
     label.grid(row=0, column=0)
-    username = Entry(app)
+    username = Entry(frame)
     username.grid(row=0, column=1)
 
-    label = Label(text='Password: ')
+    label = Label(frame, text='Password: ')
     label.grid(row=1, column=0)
-    password = Entry(app, show='*')
+    password = Entry(frame, show='*')
     password.grid(row=1, column=1)
-    Button(app, text='Submit', bg='green', fg='white',
+    Button(frame, text='Submit', bg='green', fg='white',
            command=lambda: login(
                username=username.get(),
-               password=password.get())).grid(row=3, column=1)
+               password=password.get())).grid(row=4, column=1, pady=30)
     if err:
-        Label(text=err).grid(row=4, column=1)
+        Label(frame, text=err).grid(row=3, column=1)
 
 
 def render_register():
     # Todo: retype password
     clean_screen()
+    frame = Frame(app, width=400, height=400)
+    frame.grid(row=0, column=0, padx=220, pady=100)
 
-    label = Label(text='Username: ')
+    label = Label(frame, text='Username: ')
     label.grid(row=0, column=0)
-    username = Entry(app)
+    username = Entry(frame)
     username.grid(row=0, column=1)
 
-    label = Label(text='Password: ')
+    label = Label(frame, text='Password: ')
     label.grid(row=1, column=0)
-    password = Entry(app, show='*')
+    password = Entry(frame, show='*')
     password.grid(row=1, column=1)
 
-    label = Label(text='First Name: ')
+    label = Label(frame, text='First Name: ')
     label.grid(row=2, column=0)
-    first_name = Entry(app)
+    first_name = Entry(frame)
     first_name.grid(row=2, column=1)
 
-    label = Label(text='Last Name: ')
+    label = Label(frame, text='Last Name: ')
     label.grid(row=3, column=0)
-    last_name = Entry(app)
+    last_name = Entry(frame)
     last_name.grid(row=3, column=1)
 
-    Button(app, text='Submit', bg='green', fg='white',
-           command=lambda: register(
-               username=username.get(),
-               password=password.get(),
-               first_name=first_name.get(),
-               last_name=last_name.get())).grid(row=4, column=1)
+    button = Button(frame, text='Submit', bg='green', fg='white',
+                    command=lambda: register(
+                        username=username.get(),
+                        password=password.get(),
+                        first_name=first_name.get(),
+                        last_name=last_name.get()))
+    button.grid(row=4, column=1)
 
 
 def render_main_enter_screen():
+    frame = Frame(app, width=200, height=400)
+    frame.grid(row=0, column=0, padx=300, pady=30)
     label = Label(text='Welcome to the shop!')
-    label.grid(row=1, column=2)
-    l_btn = Button(app, text='LogIn', bg='green', fg='white', command=render_login)
-    l_btn.grid(row=2, column=1)
-    r_btn = Button(app, text='Register', bg='yellow', fg='black', command=render_register)
-    r_btn.grid(row=2, column=2)
+    label.grid(row=1, column=0, pady=30)
+
+    l_btn = Button(frame, text='LogIn', bg='green', fg='white', command=render_login)
+    l_btn.grid(row=0, column=0)
+    r_btn = Button(frame, text='Register', bg='yellow', fg='black', command=render_register)
+    r_btn.grid(row=0, column=1, sticky="e")

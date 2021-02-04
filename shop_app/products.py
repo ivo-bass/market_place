@@ -3,7 +3,7 @@ import os
 from PIL import Image, ImageTk
 from shop_app.canvas import app
 from shop_app.helpers import clean_screen
-from tkinter import Button, Label
+from tkinter import Button, Label, Frame
 
 BASE_DIR = os.path.dirname(__file__)
 DB_DIR = os.path.join(BASE_DIR, 'db')
@@ -49,26 +49,28 @@ def buy_product(btn):
 
 def render_products():
     clean_screen()
+    frame = Frame(app, width=400, height=400)
+    frame.grid(row=0, column=0, padx=100, pady=10)
     with open(PRODUCTS_FILE, 'r') as file:
         products = file.readlines()
         col = 0
         for pr in products:
             product = json.loads(pr)
 
-            label = Label(text=product.get('name'))
-            label.grid(row=0, column=col)
+            label = Label(frame, text=product.get('name'))
+            label.grid(row=0, column=col, pady=10)
 
             image = Image.open(os.path.join(IMAGE_DIR, product.get('img_path')))
             image = image.resize((200, 200))
             photo = ImageTk.PhotoImage(image)
-            img_label = Label(image=photo)
+            img_label = Label(frame, image=photo)
             img_label.image = photo
             img_label.grid(row=1, column=col)
 
-            label = Label(text=f'In Stock: {product.get("count")}')
-            label.grid(row=3, column=col)
+            label2 = Label(frame, text=f'In Stock: {product.get("count")}')
+            label2.grid(row=3, column=col, pady=10)
 
-            button = Button(app, text=f'Buy {product.get("id")}')
+            button = Button(frame, text=f'Buy {product.get("id")}')
             button.configure(command=lambda b=button: buy_product(b))
             button.grid(row=4, column=col)
 
